@@ -67,9 +67,9 @@
                     <askia-questions />
                     <div class="navigation">
                         {% If CurrentADP.Var("display_previous") = "yes" Then %}
-                        <input type="submit" name="Previous" class="btn secondary keyframe {%:= classDisabled %}" value="{%= CurrentADP.Var("previous_caption") %}" {%:= attrDisabled %} role="button" />
+                        <input type="submit" name="Previous" class="btn secondary keyframe {%:= classDisabled %}" value="{%= CurrentADP.Var("previous_caption") %}" {%:= attrDisabled %} role="button" tabindex="0"/>
                         {% End If %}
-                        <input type="submit" name="Next" class="btn primary keyframe" value="{%= CurrentADP.Var("next_caption") %}" role="button" />
+                        <input type="submit" name="Next" class="btn primary keyframe" value="{%= CurrentADP.Var("next_caption") %}" role="button" tabindex="0"/>
                     </div>
                 </div>
 
