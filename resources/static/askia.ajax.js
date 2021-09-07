@@ -381,7 +381,9 @@
         askia.triggerAnswer();
       }
     });
-    askia.triggerAnswer();
+    if (window.arrLiveRoutingShortcut && window.arrLiveRoutingShortcut.length >= 1) {
+        askia.triggerAnswer();
+    }
   });
 
 }());
