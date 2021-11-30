@@ -7,8 +7,8 @@
   <info>
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
-    <version>3.2.7</version>
-    <date>2021-09-07</date>
+    <version>3.2.8</version>
+    <date>2021-11-30</date>
     <description><![CDATA[adp Matter
 		v1.0.8 - Modified dynamic/style.css for HTML5 compatibility. Added properties for additional HTML in Head and Foot sections
 		v1.0.9 - Strip HTML from longcaptions in error messages
@@ -34,7 +34,8 @@
     v3.2.5 - tabIndex focus on Next/Prev buttons
     v3.2.6 - Fixed - live-routing issue
 	v3.2.7 - commented setLabelText cause problems of implementation with responsivetable it adds several br to the second iterations responses
-    ]]></description>
+	v3.2.8 - Fixed - seLabelText issue
+]]></description>
     <company>askia</company>
     <author><![CDATA[Jerome Duparc <jeromed@askia.com> Paul McDuffee Nevin<paul@askia.com> Vincent Tellier<vincent@askia.com>]]></author>
     <site>https://www.askia.com/</site>
