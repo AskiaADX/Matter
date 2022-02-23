@@ -8,7 +8,7 @@
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
     <version>3.2.9</version>
-    <date>2022-01-24</date>
+    <date>2022-02-24</date>
     <description><![CDATA[adp Matter
 		v1.0.8 - Modified dynamic/style.css for HTML5 compatibility. Added properties for additional HTML in Head and Foot sections
 		v1.0.9 - Strip HTML from longcaptions in error messages
