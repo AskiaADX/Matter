@@ -267,6 +267,13 @@ Dim lang = code.ToString()
           for (var i = 0; i < z.length; i++) {
             if ((window.getComputedStyle(z[i]).display != "none") & (window.getComputedStyle(z[i]).visibility != "hidden"))
               z[i].setAttribute("role", "heading");
+
+              //Headings
+              let heading = document.createElement("h1");
+              if (z[i].children.length == 0)
+                heading.innerHTML = z[i].textContent.trim(),
+                  z[i].innerHTML = "",
+                    z[i].appendChild(heading);
           }
         </script>
     </body>
