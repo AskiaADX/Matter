@@ -161,6 +161,10 @@ header.fixed .progressWrapper {
     font-size: {%= NormalFS %};
     padding: {%= VPadding %} 0;
 }
+.askia-question-label h1 {
+    font-size: {%= NormalFS %};
+    margin: 0;
+}
 .askia-control .askia-question-label {
     font-size: {%= NormalFS %};
     padding: 0;
@@ -342,7 +346,7 @@ input[type=week]:hover {
 
 .secondary {
     background-color: rgba({%= NeutralLightColor %});
-    color: rgba({%= NeutralDarkColor %});
+    color: rgba({%= BlackColor %});
 }
 
 .secondary:hover {
