@@ -28,6 +28,11 @@ Dim modalWidth = CurrentADP.Var("modal_width")
 Dim modalHeight = CurrentADP.Var("modal_height")
 Dim closeType = CurrentADP.Var("modal_close_type")
 
+Dim nextButtonBackgroundColor = CurrentADP.Var("next_button_background_color")
+Dim nextButtonForegroundColor = CurrentADP.Var("next_button_foreground_color")
+Dim previousButtonBackgroundColor = CurrentADP.Var("previous_button_background_color")
+Dim previousButtonForegroundColor = CurrentADP.Var("previous_button_foreground_color")
+
 %}
 
 ::selection {
@@ -335,8 +340,8 @@ input[type=week]:hover {
 }
 
 .primary {
-    background-color: rgba({%= SecondaryColor %});
-    color: rgba({%= WhiteColor %});
+    background-color: rgba({%= nextButtonBackgroundColor %});
+    color: rgba({%= nextButtonForegroundColor %});
 }
 
 .primary:hover {
@@ -345,8 +350,8 @@ input[type=week]:hover {
 }
 
 .secondary {
-    background-color: rgba({%= NeutralLightColor %});
-    color: rgba({%= BlackColor %});
+    background-color: rgba({%= previousButtonBackgroundColor %});
+    color: rgba({%= previousButtonForegroundColor %});
 }
 
 .secondary:hover {
