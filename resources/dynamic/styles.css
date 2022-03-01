@@ -28,6 +28,11 @@ Dim modalWidth = CurrentADP.Var("modal_width")
 Dim modalHeight = CurrentADP.Var("modal_height")
 Dim closeType = CurrentADP.Var("modal_close_type")
 
+Dim nextButtonBackgroundColor = CurrentADP.Var("next_button_background_color")
+Dim nextButtonForegroundColor = CurrentADP.Var("next_button_foreground_color")
+Dim previousButtonBackgroundColor = CurrentADP.Var("previous_button_background_color")
+Dim previousButtonForegroundColor = CurrentADP.Var("previous_button_foreground_color")
+
 %}
 
 ::selection {
@@ -161,6 +166,10 @@ header.fixed .progressWrapper {
     font-size: {%= NormalFS %};
     padding: {%= VPadding %} 0;
 }
+.askia-question-label h1 {
+    font-size: {%= NormalFS %};
+    margin: 0;
+}
 .askia-control .askia-question-label {
     font-size: {%= NormalFS %};
     padding: 0;
@@ -248,6 +257,10 @@ header.fixed .progressWrapper {
 input[type=checkbox]:checked~label.askia-response-label, input[type=radio]:checked~label.askia-response-label {
     color: rgba({%= SecondaryColor %});
 }
+input[type=checkbox]:checked~p.askia-response-label, input[type=radio]:checked~p.askia-response-label {
+    color: rgba({%= SecondaryColor %});
+}
+
 input[type=radio] + label.askia-radio,
 input[type=checkbox] + label.askia-checkbox {
     width: {%= radio_checkbox_size %};
@@ -331,8 +344,8 @@ input[type=week]:hover {
 }
 
 .primary {
-    background-color: rgba({%= SecondaryColor %});
-    color: rgba({%= WhiteColor %});
+    background-color: rgba({%= nextButtonBackgroundColor %});
+    color: rgba({%= nextButtonForegroundColor %});
 }
 
 .primary:hover {
@@ -341,8 +354,8 @@ input[type=week]:hover {
 }
 
 .secondary {
-    background-color: rgba({%= NeutralLightColor %});
-    color: rgba({%= NeutralDarkColor %});
+    background-color: rgba({%= previousButtonBackgroundColor %});
+    color: rgba({%= previousButtonForegroundColor %});
 }
 
 .secondary:hover {

@@ -1,5 +1,15 @@
 <!DOCTYPE html>
-<html lang="{%:= Interview.Language.Abbr %}" translate="no">
+{%
+' This part will set the html/lang
+
+Dim obj As Dictionary = @{
+"AFK":"af","SQI":"sq","GSW":"gsw","AMH":"am","ARA":"ar","ARG":"ar","ARH":"ar","ARE":"ar","ARI":"ar","ARJ":"ar","ARK":"ar","ARB":"ar","ARL":"ar","ARM":"ar","ARO":"ar","ARQ":"ar","ARS":"ar","ART":"ar","ARU":"ar","ARY":"ar","HYE":"hy","ASM":"as","AZC":"az","AZE":"az","BAS":"ba","EUQ":"eu","BEL":"be","BNG":"bn","BNB":"bn","BSC":"bs","BRE":"br","BGR":"bg","MYA":"my","CAT":"ca","CHS":"zh","ZHI":"zh","CHT":"zh","ZHH":"zh","ZHM":"zh","COS":"co","HRV":"hr","HRB":"hr","CSY":"cs","DAN":"da","PRS":"prs","DIV":"dv","NLD":"nl","NLB":"nl","ENU":"en","ENG":"en","ENA":"en","ENL":"en","ENC":"en","ENB":"en","ENH":"en","ENN":"en","ZZZ":"yi","ENI":"en","ENJ":"en","ENM":"en","ENZ":"en","ENP":"en","ENE":"en","ENS":"en","ENT":"en","ENW":"en","ETI":"et","FOS":"fo","FPO":"fil","FIN":"fi","FRA":"fr","FRB":"fr","FRE":"fr","FRC":"fr","FRD":"fr","FRI":"fr","FRH":"fr","FRL":"fr","FRF":"fr","FRM":"fr","FRO":"fr","FRR":"fr","FRN":"fr","FRS":"fr","GLC":"gl","KAT":"ka","DEU":"de","DEA":"de","DEC":"de","DEL":"de","DES":"de","ELL":"el","KAL":"kl","GRN":"gn","GUJ":"gu","HAU":"ha","HEB":"he","HIN":"hi","HUN":"hu","ISL":"is","IBO":"ig","IND":"id","IUK":"iu","IRE":"ga","ITA":"it","ITS":"it","JPN":"ja","QUT":"qut","KDI":"kn","KKZ":"kk","KHM":"km","KIN":"rw","SWK":"sw-KE","KNK":"kok","KOR":"ko","KYR":"ky","LAO":"lo","LVI":"lv","LTH":"lt","LBX":"lb","MSL":"ms","MSB":"ms","MYM":"ml","MLT":"mt","MRI":"mi","MPD":"arn","MAR":"mr","MWK":"moh","MNG":"mn","MNN":"mn","NEP":"ne","NEI":"ne","NOR":"nb","NON":"nn","OCI":"oc","ORI":"or","ORM":"om","PAS":"ps","PLK":"pl","PTB":"pt","PTG":"pt","PAN":"pa","PAP":"pa","QUB":"qu","QUE":"qu","QUP":"qu","ROM":"ro","ROD":"ro","RUS":"ru","RUM":"ru","SMJ":"se","SAN":"sa","SRN":"sr","SRM":"sr","SIP":"sd","SIN":"si","SKY":"sk","SLV":"sl","SOM":"so","ESN":"es","ESP":"es","ESS":"es","ESB":"es","ESL":"es","ESO":"es","ESC":"es","ESD":"es","ESF":"es","ESE":"es","ESG":"es","ESH":"es","ESJ":"es","ESM":"es","ESI":"es","ESA":"es","ESZ":"es","ESR":"es","ESU":"es","EST":"es","ESY":"es","ESV":"es","SVE":"sv","SVF":"sv","SYR":"syr","TAJ":"tg","TAI":"ta","TTT":"tt","TEL":"te","THA":"th","BOB":"bo","TIR":"ti","TIE":"ti","TRK":"tr","TUK":"tk","UIG":"ug","UKR":"uk","URD":"ur","URI":"ur","UZC":"uz","UZB":"uz","VIT":"vi","CYM":"cy","WOL":"wo","III":"ii","YOR":"yo"}
+
+Dim code = obj[Interview.Language.Abbr]
+Dim lang = code.ToString()
+%}
+
+<html lang="{%:= lang %}" translate="no">
     <head>
         <title>{%= CurrentADP.Var("window_title") %}</title>
         <meta charset="utf-8">
@@ -257,7 +267,32 @@
           for (var i = 0; i < z.length; i++) {
             if ((window.getComputedStyle(z[i]).display != "none") & (window.getComputedStyle(z[i]).visibility != "hidden"))
               z[i].setAttribute("role", "heading");
+
+              //Headings
+              let heading = document.createElement("h1");
+              if (z[i].children.length == 0)
+                heading.innerHTML = z[i].textContent.trim(),
+                  z[i].innerHTML = "",
+                    z[i].appendChild(heading);
           }
+
+          var q = document.querySelectorAll("INPUT[type=text]");
+          for (var i = 0; i < q.length; i++) {
+            if (!q[i].getAttribute("aria-label")) q[i].setAttribute("aria-label", "Text box");
+          }
+          var r = document.querySelectorAll("TEXTAREA");
+          for (var i = 0; i < r.length; i++) {
+            if (!r[i].getAttribute("aria-label")) r[i].setAttribute("aria-label", "Textarea");
+          }
+          var s = document.querySelectorAll("INPUT[type=number]");
+          for (var i = 0; i < s.length; i++) {
+            if (!s[i].getAttribute("aria-label")) s[i].setAttribute("aria-label", "Number box");
+          }
+          var t = document.querySelectorAll("INPUT[type=password]");
+          for (var i = 0; i < t.length; i++) {
+            if (!t[i].getAttribute("aria-label")) t[i].setAttribute("aria-label", "Password");
+          }
+
         </script>
     </body>
 </html>
