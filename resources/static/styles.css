@@ -197,7 +197,7 @@ header.fixed h2 {
 }
 
 /* RESPONSES */
-.askia-response label.askia-response-label {
+.askia-response label.askia-response-label p.askia-response-label {
   cursor: pointer;
   margin-left: .8em;
   vertical-align: middle;

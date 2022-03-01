@@ -275,6 +275,24 @@ Dim lang = code.ToString()
                   z[i].innerHTML = "",
                     z[i].appendChild(heading);
           }
+
+          var q = document.querySelectorAll("INPUT[type=text]");
+          for (var i = 0; i < q.length; i++) {
+            if (!q[i].getAttribute("aria-label")) q[i].setAttribute("aria-label", "Text box");
+          }
+          var r = document.querySelectorAll("TEXTAREA");
+          for (var i = 0; i < r.length; i++) {
+            if (!r[i].getAttribute("aria-label")) r[i].setAttribute("aria-label", "Textarea");
+          }
+          var s = document.querySelectorAll("INPUT[type=number]");
+          for (var i = 0; i < s.length; i++) {
+            if (!s[i].getAttribute("aria-label")) s[i].setAttribute("aria-label", "Number box");
+          }
+          var t = document.querySelectorAll("INPUT[type=password]");
+          for (var i = 0; i < t.length; i++) {
+            if (!t[i].getAttribute("aria-label")) t[i].setAttribute("aria-label", "Password");
+          }
+
         </script>
     </body>
 </html>

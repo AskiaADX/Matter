@@ -257,6 +257,10 @@ header.fixed .progressWrapper {
 input[type=checkbox]:checked~label.askia-response-label, input[type=radio]:checked~label.askia-response-label {
     color: rgba({%= SecondaryColor %});
 }
+input[type=checkbox]:checked~p.askia-response-label, input[type=radio]:checked~p.askia-response-label {
+    color: rgba({%= SecondaryColor %});
+}
+
 input[type=radio] + label.askia-radio,
 input[type=checkbox] + label.askia-checkbox {
     width: {%= radio_checkbox_size %};
