@@ -7,8 +7,8 @@
   <info>
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
-    <version>3.3.0</version>
-    <date>2022-03-01</date>
+    <version>3.3.1</version>
+    <date>2022-03-08</date>
     <description><![CDATA[adp Matter
 		v1.0.8 - Modified dynamic/style.css for HTML5 compatibility. Added properties for additional HTML in Head and Foot sections
 		v1.0.9 - Strip HTML from longcaptions in error messages
@@ -37,6 +37,7 @@
 	v3.2.8 - Fixed - seLabelText issue
 	v3.2.9 - Fixed - setLabelText js error
   v3.3.0 - wcag compliance issues
+	v3.3.1 - caption h1 font-weight
 ]]></description>
     <company>askia</company>
     <author><![CDATA[Jerome Duparc <jeromed@askia.com> Paul McDuffee Nevin<paul@askia.com> Vincent Tellier<vincent@askia.com>]]></author>
@@ -146,7 +147,6 @@
         <description><![CDATA[Next caption]]></description>
         <value><![CDATA[Next]]></value>
       </property>
-
       <property xsi:type="standardProperty" id="next_button_background_color" name="Next button background color" type="color" mode="dynamic" require="true" visible="false" colorFormat="rgba">
         <description><![CDATA[The background color of the next button]]></description>
         <value><![CDATA[{%= Theme.SecondaryColor %}]]></value>
@@ -163,7 +163,6 @@
         <description><![CDATA[The foreground color of the previous button]]></description>
         <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
-
     </category>
     <category id="footer" name="Footer">
       <property xsi:type="standardProperty" id="display_footer" name="Display footer" type="string" mode="dynamic" require="true" visible="true">
