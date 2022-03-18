@@ -7,11 +7,11 @@
   <info>
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
-    <version>3.3.2</version>
-    <date>2022-03-14</date>
+    <version>3.3.3</version>
+    <date>2022-03-18</date>
     <description><![CDATA[
         Matter Askia Design Page
-        
+
     		v1.0.8 - Modified dynamic/style.css for HTML5 compatibility. Added properties for additional HTML in Head and Foot sections
     		v1.0.9 - Strip HTML from longcaptions in error messages
     		v1.0.10 - Added display next property
@@ -41,6 +41,7 @@
       v3.3.0 - wcag compliance issues
     	  v3.3.1 - caption h1 font-weight
     	  v3.3.2 - Fixed gridresponse error
+        v3.3.3 - Fixed - syntax error on IE Preview
     ]]></description>
     <company>askia</company>
     <author><![CDATA[Jerome Duparc <jeromed@askia.com> Paul McDuffee Nevin<paul@askia.com> Vincent Tellier<vincent@askia.com>]]></author>

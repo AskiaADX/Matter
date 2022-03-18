@@ -270,11 +270,10 @@ Dim lang = code.ToString()
 
               //Headings
               let heading = document.createElement("h1");
-              // if (z[i].children.length == 0)
-                heading.innerHTML = z[i].innerHTML,
-                  heading.style.fontWeight = "normal",
-                    z[i].innerHTML = "",
-                      z[i].appendChild(heading);
+              heading.innerHTML = z[i].innerHTML,
+                heading.style.fontWeight = "normal",
+                  z[i].innerHTML = "",
+                    z[i].appendChild(heading);
           }
 
           var q = document.querySelectorAll("INPUT[type=text]");
@@ -294,10 +293,9 @@ Dim lang = code.ToString()
             if (!t[i].getAttribute("aria-label")) t[i].setAttribute("aria-label", "Password");
           }
           var v = document.querySelectorAll("H1");
-          v.forEach((elem, i) => {
-            if(elem.innerText.trim() == "") elem.remove();
-          });
-
+          for (var i = 0; i < v.length; i++) {
+            if(v[i].innerText.trim() == "") v[i].remove();
+          }
         </script>
     </body>
 </html>
