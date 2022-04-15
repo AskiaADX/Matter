@@ -241,11 +241,15 @@ Dim lang = code.ToString()
 
           // Set aria-label and innertext of Label
           function setLabelText(labelElem){
-           let ariaLabel, arr, txt;
-           txt = labelElem.innerText;
-           txt = txt.trim();
+           console.log(labelElem.textContent);
+           let ariaLabel, arr, txt, htmlContent;
+           txt = labelElem.textContent;
+           htmlContent = labelElem.textContent;
            arr = txt.split("|");
-           (arr.length > 1) ? (labelElem.setAttribute("aria-label", arr[1]), labelElem.innerText = arr[0]) : (labelElem.setAttribute("aria-label", txt), labelElem.innerText = txt);
+           txt = txt.trim();
+           (arr.length > 1) ?
+           ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", arr[1].trim()) : null), labelElem.innerHTML = arr[0]) :
+           ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", txt) : null), labelElem.innerHTML = htmlContent);
           }
 
           document.querySelector('.askiaquestions').focus();
