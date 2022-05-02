@@ -7,8 +7,8 @@
   <info>
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
-    <version>3.3.4</version>
-    <date>2022-04-01</date>
+    <version>3.4.0</version>
+    <date>2022-05-02</date>
     <description><![CDATA[
         Matter Askia Design Page
 
@@ -43,6 +43,7 @@
     	  v3.3.2 - Fixed gridresponse error
         v3.3.3 - Fixed - syntax error on IE Preview
         v3.3.4 - Allow html on response caption
+      v3.4.0 -
     ]]></description>
     <company>askia</company>
     <author><![CDATA[Jerome Duparc <jeromed@askia.com> Paul McDuffee Nevin<paul@askia.com> Vincent Tellier<vincent@askia.com>]]></author>
@@ -128,6 +129,7 @@
           <option value="right" text="Right" />
         </options>
       </property>
+
       <property xsi:type="standardProperty" id="display_previous" name="Display previous" type="string" require="true" visible="true">
         <description><![CDATA[Display previous button]]></description>
         <value><![CDATA[yes]]></value>
@@ -140,6 +142,7 @@
         <description><![CDATA[Previous caption]]></description>
         <value><![CDATA[Previous]]></value>
       </property>
+
       <property xsi:type="standardProperty" id="display_next" name="Display next" type="string" require="true" visible="true">
         <description><![CDATA[Display next button]]></description>
         <value><![CDATA[yes]]></value>
@@ -152,6 +155,20 @@
         <description><![CDATA[Next caption]]></description>
         <value><![CDATA[Next]]></value>
       </property>
+
+      <property xsi:type="standardProperty" id="display_pause" name="Display pause" type="string" require="true" visible="true">
+        <description><![CDATA[Display pause button]]></description>
+        <value><![CDATA[yes]]></value>
+        <options>
+          <option value="yes" text="Yes" />
+          <option value="no" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="pause_caption" name="Pause caption" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Pause caption]]></description>
+        <value><![CDATA[Pause]]></value>
+      </property>
+
       <property xsi:type="standardProperty" id="next_button_background_color" name="Next button background color" type="color" mode="dynamic" require="true" visible="false" colorFormat="rgba">
         <description><![CDATA[The background color of the next button]]></description>
         <value><![CDATA[{%= Theme.SecondaryColor %}]]></value>
@@ -227,6 +244,16 @@
       <property xsi:type="standardProperty" id="modal_height" name="Modal height" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Modal height]]></description>
         <value><![CDATA[100px]]></value>
+      </property>
+    </category>
+    <category id="extraHtml" name="Additional HTML before/after askia questions">
+      <property xsi:type="standardProperty" id="before_questions" name="HTML Before Questions" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[HTML Before Questions]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="after_questions" name="HTML After Questions" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[HTML After Questions]]></description>
+        <value></value>
       </property>
     </category>
   </properties>
