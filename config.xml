@@ -8,7 +8,7 @@
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
     <version>3.4.0</version>
-    <date>2022-05-02</date>
+    <date>2022-05-06</date>
     <description><![CDATA[
         Matter Askia Design Page
 
@@ -158,7 +158,7 @@
 
       <property xsi:type="standardProperty" id="display_pause" name="Display pause" type="string" require="true" visible="true">
         <description><![CDATA[Display pause button]]></description>
-        <value><![CDATA[yes]]></value>
+        <value><![CDATA[no]]></value>
         <options>
           <option value="yes" text="Yes" />
           <option value="no" text="No" />
