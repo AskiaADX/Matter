@@ -67,6 +67,8 @@ Dim lang = code.ToString()
 
             <!--- ASKIA FORM BEGINS HERE -->
             <askia-form>
+                {%:= CurrentADP.Var("before_questions") %}
+
                 <div class="askiaquestions">
                     {% If (CurrentQuestions.Errors.Count) Then %}
                     <div class="askia-errors-summary">
@@ -79,6 +81,11 @@ Dim lang = code.ToString()
                         {% If CurrentADP.Var("display_previous") = "yes" Then %}
                         <input type="submit" name="Previous" class="btn secondary keyframe {%:= classDisabled %}" value="{%= CurrentADP.Var("previous_caption") %}" {%:= attrDisabled %} role="button" tabindex="0"/>
                         {% End If %}
+
+                        {% If CurrentADP.Var("display_pause") = "yes" Then %}
+                        <input type="submit" title="Pause" value="{%= CurrentADP.Var("pause_caption") %}" name="Pause" class="btn keyframe" role="button" tabindex="0" />
+                        {% End If %}
+
                         <input type="submit" name="Next" class="btn primary keyframe" value="{%= CurrentADP.Var("next_caption") %}" role="button" tabindex="0"/>
                     </div>
                 </div>
@@ -100,6 +107,7 @@ Dim lang = code.ToString()
                 </div>
               </div>
 
+              {%:= CurrentADP.Var("after_questions") %}
             </askia-form>
             <!--- ASKIA FORM ENDS HERE -->
         </div>
@@ -240,8 +248,7 @@ Dim lang = code.ToString()
           });
 
           // Set aria-label and innertext of Label
-          function setLabelText(labelElem){
-           console.log(labelElem.textContent);
+          function setLabelText(labelElem) {
            let ariaLabel, arr, txt, htmlContent;
            txt = labelElem.textContent;
            htmlContent = labelElem.textContent;
@@ -256,7 +263,7 @@ Dim lang = code.ToString()
           x = document.querySelectorAll(".response");
           for (i = 0; i < x.length; i++) {
             x[i].tabIndex = "0";
-            (x[i].classList.contains("responseItem")) ? setLabelText(x[i].children[0]) : setLabelText(x[i].children[2]);
+            // (x[i].classList.contains("responseItem")) ? setLabelText(x[i].children[0]) : setLabelText(x[i].children[2]); 
           }
 
           y = document.querySelectorAll(".askia-response");
