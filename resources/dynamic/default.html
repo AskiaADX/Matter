@@ -263,7 +263,7 @@ Dim lang = code.ToString()
           x = document.querySelectorAll(".response");
           for (i = 0; i < x.length; i++) {
             x[i].tabIndex = "0";
-            // (x[i].classList.contains("responseItem")) ? setLabelText(x[i].children[0]) : setLabelText(x[i].children[2]); 
+            (x[i].classList.contains("responseItem")) ? setLabelText(x[i].children[0]) : setLabelText(x[i].children[2]); 
           }
 
           y = document.querySelectorAll(".askia-response");
