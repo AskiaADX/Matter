@@ -7,8 +7,8 @@
   <info>
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
-    <version>3.4.0</version>
-    <date>2022-05-11</date>
+    <version>3.4.1</version>
+    <date>2022-05-12</date>
     <description><![CDATA[
         Matter Askia Design Page
 
@@ -44,6 +44,7 @@
         v3.3.3 - Fixed - syntax error on IE Preview
         v3.3.4 - Allow html on response caption
       v3.4.0 -
+        v3.4.1 - Additional html before/after questions
     ]]></description>
     <company>askia</company>
     <author><![CDATA[Jerome Duparc <jeromed@askia.com> Paul McDuffee Nevin<paul@askia.com> Vincent Tellier<vincent@askia.com>]]></author>
@@ -109,14 +110,6 @@
       <property xsi:type="standardProperty" id="ribbon_footer_background_color" name="Ribbon and footer background color" type="color" mode="dynamic" require="true" visible="false" colorFormat="rgba">
         <description><![CDATA[The background color of the ribbon and footer]]></description>
         <value><![CDATA[{%= Theme.PrimaryColor %}]]></value>
-      </property>
-      <property xsi:type="standardProperty" id="headHTML" name="Additional HTML for Head section" type="string" mode="dynamic" require="false" visible="true">
-        <description><![CDATA[Additional HTML for Head section]]></description>
-        <value></value>
-      </property>
-      <property xsi:type="standardProperty" id="footHTML" name="Additional HTML for Foot section" type="string" mode="dynamic" require="false" visible="true">
-        <description><![CDATA[Additional HTML for Foot section]]></description>
-        <value></value>
       </property>
     </category>
     <category id="buttons" name="Buttons">
@@ -185,6 +178,15 @@
         <description><![CDATA[The foreground color of the previous button]]></description>
         <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
+      <property xsi:type="standardProperty" id="pause_button_background_color" name="Pause button background color" type="color" mode="dynamic" require="true" visible="false" colorFormat="rgba">
+        <description><![CDATA[The background color of the pause button]]></description>
+        <value><![CDATA[{%= Theme.WhiteColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="pause_button_foreground_color" name="Pause button foreground color" type="color" mode="dynamic" require="true" visible="false" colorFormat="rgba">
+        <description><![CDATA[The foreground color of the pause button]]></description>
+        <value><![CDATA[{%= Theme.BlackColor %}]]></value>
+      </property>
+
     </category>
     <category id="footer" name="Footer">
       <property xsi:type="standardProperty" id="display_footer" name="Display footer" type="string" mode="dynamic" require="true" visible="true">
@@ -246,13 +248,21 @@
         <value><![CDATA[100px]]></value>
       </property>
     </category>
-    <category id="extraHtml" name="Additional HTML before/after askia questions">
-      <property xsi:type="standardProperty" id="before_questions" name="HTML Before Questions" type="string" mode="dynamic" require="false" visible="true">
+    <category id="additionalHtml" name="Additional HTML">
+      <property xsi:type="standardProperty" id="before_questions" name="Additional HTML Before Questions" type="string" mode="dynamic" require="false" visible="true">
         <description><![CDATA[HTML Before Questions]]></description>
         <value></value>
       </property>
-      <property xsi:type="standardProperty" id="after_questions" name="HTML After Questions" type="string" mode="dynamic" require="false" visible="true">
+      <property xsi:type="standardProperty" id="after_questions" name="Additional HTML After Questions" type="string" mode="dynamic" require="false" visible="true">
         <description><![CDATA[HTML After Questions]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="headHTML" name="Additional HTML for Head section" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Additional HTML for Head section]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="footHTML" name="Additional HTML for Foot section" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Additional HTML for Foot section]]></description>
         <value></value>
       </property>
     </category>
