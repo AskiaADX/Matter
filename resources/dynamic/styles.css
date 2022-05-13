@@ -32,7 +32,8 @@ Dim nextButtonBackgroundColor = CurrentADP.Var("next_button_background_color")
 Dim nextButtonForegroundColor = CurrentADP.Var("next_button_foreground_color")
 Dim previousButtonBackgroundColor = CurrentADP.Var("previous_button_background_color")
 Dim previousButtonForegroundColor = CurrentADP.Var("previous_button_foreground_color")
-
+Dim pauseButtonBackgroundColor = CurrentADP.Var("pause_button_background_color")
+Dim pauseButtonForegroundColor = CurrentADP.Var("pause_button_foreground_color")
 %}
 
 ::selection {
@@ -365,6 +366,12 @@ input[type=week]:hover {
 .secondary.disabled:hover {
     box-shadow: 0 2px 5px rgba({%= BlackColor.ToRGB() %}, 0.3);
 }
+
+.pause {
+  background-color: rgba({%= pauseButtonBackgroundColor %});
+  color: rgba({%= pauseButtonForegroundColor %});
+}
+
 .footerLeft {
     padding: 0 0 0 {%= HPadding %};
     color: rgba({%= NeutralLightColor %});
