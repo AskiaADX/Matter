@@ -7,8 +7,8 @@
   <info>
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
-    <version>3.4.1</version>
-    <date>2022-05-12</date>
+    <version>3.4.2</version>
+    <date>2022-05-19</date>
     <description><![CDATA[
         Matter Askia Design Page
 
@@ -45,6 +45,7 @@
         v3.3.4 - Allow html on response caption
       v3.4.0 -
         v3.4.1 - Additional html before/after questions
+        v3.4.2
     ]]></description>
     <company>askia</company>
     <author><![CDATA[Jerome Duparc <jeromed@askia.com> Paul McDuffee Nevin<paul@askia.com> Vincent Tellier<vincent@askia.com>]]></author>
@@ -63,6 +64,7 @@
       <content fileName="styles.min.css" type="css" mode="static" position="head" />
       <content fileName="styles.css" type="css" mode="dynamic" position="head" />
       <content fileName="askia.ajax.min.js" type="javascript" mode="static" position="foot" />
+      <content fileName="language.asx" type="asx" mode="modules" position="none" />      
     </output>
   </outputs>
   <properties>
