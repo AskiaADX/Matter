@@ -1,52 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page  xmlns="http://www.askia.com/2.2.0/ADPSchema"
+<page  xmlns="http://www.askia.com/2.3.0/ADPSchema"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://www.askia.com/2.2.0/ADPSchema https://raw.githubusercontent.com/AskiaADX/ADXSchema/2.2.0/ADPSchema.xsd"
-          version="2.2.0"
-          askiaCompat="5.5.2">
+          xsi:schemaLocation="http://www.askia.com/2.3.0/ADPSchema https://raw.githubusercontent.com/AskiaADX/ADXSchema/2.3.0/ADPSchema.xsd"
+          version="2.3.0"
+          askiaCompat="5.6.1">
   <info>
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
-    <version>3.4.2</version>
-    <date>2022-05-19</date>
-    <description><![CDATA[
-        Matter Askia Design Page
-
-    		v1.0.8 - Modified dynamic/style.css for HTML5 compatibility. Added properties for additional HTML in Head and Foot sections
-    		v1.0.9 - Strip HTML from longcaptions in error messages
-    		v1.0.10 - Added display next property
-		v2.0.0 - Added window.location.search
-    		v2.0.1 - Added indentation for long labels
-        v2.0.2 - Customizable modal on submit
-        v2.0.3 - Custom error message for email inputs
-    v3.0.0 - ADPSchema 2.2.0
-        v3.0.1 -
-        v3.0.2 -
-        v3.0.3 - Check if window.isDesignPreview object does exist
-    	  v3.0.4 - Fixed live routing call at load
-        v3.0.5 - change html.lang attribute
-      v3.1.0 - show/hide responses live-routing
-        v3.1.1 -
-        v3.1.2 - tabIndex management
-      v3.2.0 - SetValue ajax
-      	v3.2.1 -
-      	v3.2.2 -
-        v3.2.3 - Add focus to question text
-        v3.2.4 - ariaLabel on response caption
-        v3.2.5 - tabIndex focus on Next/Prev buttons
-        v3.2.6 - Fixed - live-routing issue
-    	  v3.2.7 - commented setLabelText cause problems of implementation with responsivetable it adds several br to the second iterations responses
-    	  v3.2.8 - Fixed - seLabelText issue
-    	  v3.2.9 - Fixed - setLabelText js error
-      v3.3.0 - wcag compliance issues
-    	  v3.3.1 - caption h1 font-weight
-    	  v3.3.2 - Fixed gridresponse error
-        v3.3.3 - Fixed - syntax error on IE Preview
-        v3.3.4 - Allow html on response caption
-      v3.4.0 -
-        v3.4.1 - Additional html before/after questions
-        v3.4.2
-    ]]></description>
+    <version>4.0.0</version>
+    <date>2022-06-16</date>
+    <description><![CDATA[Matter Askia Design Page]]></description>
     <company>askia</company>
     <author><![CDATA[Jerome Duparc <jeromed@askia.com> Paul McDuffee Nevin<paul@askia.com> Vincent Tellier<vincent@askia.com>]]></author>
     <site>https://www.askia.com/</site>
@@ -64,7 +27,7 @@
       <content fileName="styles.min.css" type="css" mode="static" position="head" />
       <content fileName="styles.css" type="css" mode="dynamic" position="head" />
       <content fileName="askia.ajax.min.js" type="javascript" mode="static" position="foot" />
-      <content fileName="language.asx" type="asx" mode="modules" position="none" />      
+      <content fileName="error.asx" type="asx" mode="modules" position="none" />
     </output>
   </outputs>
   <properties>
@@ -124,7 +87,6 @@
           <option value="right" text="Right" />
         </options>
       </property>
-
       <property xsi:type="standardProperty" id="display_previous" name="Display previous" type="string" require="true" visible="true">
         <description><![CDATA[Display previous button]]></description>
         <value><![CDATA[yes]]></value>
@@ -137,7 +99,6 @@
         <description><![CDATA[Previous caption]]></description>
         <value><![CDATA[Previous]]></value>
       </property>
-
       <property xsi:type="standardProperty" id="display_next" name="Display next" type="string" require="true" visible="true">
         <description><![CDATA[Display next button]]></description>
         <value><![CDATA[yes]]></value>
@@ -150,7 +111,6 @@
         <description><![CDATA[Next caption]]></description>
         <value><![CDATA[Next]]></value>
       </property>
-
       <property xsi:type="standardProperty" id="display_pause" name="Display pause" type="string" require="true" visible="true">
         <description><![CDATA[Display pause button]]></description>
         <value><![CDATA[no]]></value>
@@ -163,7 +123,6 @@
         <description><![CDATA[Pause caption]]></description>
         <value><![CDATA[Pause]]></value>
       </property>
-
       <property xsi:type="standardProperty" id="next_button_background_color" name="Next button background color" type="color" mode="dynamic" require="true" visible="false" colorFormat="rgba">
         <description><![CDATA[The background color of the next button]]></description>
         <value><![CDATA[{%= Theme.SecondaryColor %}]]></value>
@@ -188,7 +147,6 @@
         <description><![CDATA[The foreground color of the pause button]]></description>
         <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
-
     </category>
     <category id="footer" name="Footer">
       <property xsi:type="standardProperty" id="display_footer" name="Display footer" type="string" mode="dynamic" require="true" visible="true">

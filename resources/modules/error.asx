@@ -1,0 +1,22 @@
+Module ErrorModule
+
+  Export Function getErrorUL(errorString As String) As String
+
+    Dim errorUL = ""
+    If (errorString <> "") Then
+      errorUL = "<p>"+ errorString +"</p>"
+    End If
+
+    errorUL = errorUL + "<ul>"
+
+    Dim xerrorIndex = 1
+    For xerrorIndex = 1 To CurrentQuestions.Errors.Count
+      Dim origError = CurrentQuestions.Errors[xerrorIndex].Message.ToString().Replace(crlf," ")
+      errorUL = errorUL + "<li>" + origError + "</li>"
+    Next
+
+    Return errorUL
+
+  End Function
+
+End Module
