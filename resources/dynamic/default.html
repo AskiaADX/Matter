@@ -122,6 +122,7 @@
 
         }
 
+        // Import ErrorModule and show
         {% IF (CurrentQuestions.Errors.Count > 0) THEN
           Import ErrorModule
           Dim errorUL
@@ -140,6 +141,7 @@
 
           if (document.getElementsByClassName('askia-errors-summary')[0])	document.getElementsByClassName('askia-errors-summary')[0].innerHTML=errorUL;
         {% ENDIF %}
+        // End
 
         // check RegExp on email
         function checkEmailRegex(elem){
@@ -155,7 +157,7 @@
                     nav = document.getElementById('nav'),
                     position = nav.offsetTop;
 
-                /**
+          /**
            * Add class in DOMElement
            *
            * @param {HTMLElement} obj HTMLElement where the class should be added
