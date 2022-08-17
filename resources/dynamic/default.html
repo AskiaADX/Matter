@@ -206,10 +206,10 @@
 
             document.addEventListener("keyup", function(event){
               var el = event.target || event.srcElement;
-              if ((el.nodeName === "TD" || el.nodeName === "LI" ) && el.className.indexOf("askia-response") >= 0 && el.className.indexOf("askia-response-label") < 0) {
+              if ((el.nodeName === "TD" || el.nodeName === "LI" ) && el.className.indexOf("askia-response") >= 0 && el.className.indexOf("askia-response-label") < 0)
                 if (event.keyCode == 32)
+                  if (el.lastElementChild.attributes.for)
                     document.getElementById(el.lastElementChild.attributes.for.value).click();
-              }
             },false);
 
           });
