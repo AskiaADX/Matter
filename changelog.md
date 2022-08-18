@@ -32,6 +32,7 @@ v3.0.0      - ADPSchema 2.2.0
     v3.3.4  - Allow html on response caption
   v3.4.0    -
     v3.4.1  - Additional html before/after questions
-  v3.5.0    - Inject error module by an asx file
+  v4.0.0    - Inject error module by an asx file
             - html/lang
             - use of logo-askia.svg file instead of inline svg
+    v4.0.1  - Simple fix for TemplateAll 
