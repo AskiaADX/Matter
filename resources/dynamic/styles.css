@@ -163,6 +163,11 @@ header.fixed .progressWrapper {
     box-shadow: 0 4px 5px 0 rgba({%= BlackColor.ToRGB() %}, .14), 0 1px 10px 0 rgba({%= BlackColor.ToRGB() %}, .12), 0 2px 4px -1px rgba({%= BlackColor.ToRGB() %}, .2);
 }
 
+.askia-response-header {
+  pointer-events:none;
+  font-weight: bold;
+  font-size: {%= NormalFS %};
+}
 .askia-question-label {
     font-size: {%= NormalFS %};
     padding: {%= VPadding %} 0;
@@ -206,6 +211,7 @@ header.fixed .progressWrapper {
     margin-left: {%= radio_checkbox_size %} !important;
     padding-left: 10px;
     vertical-align: text-top;
+    cursor: pointer;
 }
 
 .instruction {
