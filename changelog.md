@@ -35,4 +35,5 @@ v3.0.0      - ADPSchema 2.2.0
   v3.5.0    - Inject error module by an asx file
             - html/lang
             - use of logo-askia.svg file instead of inline svg
-    v3.5.1  - Simple fix for TemplateAll 
+    v3.5.1  - Simple fix for TemplateAll
+  v3.6.0    - Native support for response-headers

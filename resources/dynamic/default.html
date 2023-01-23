@@ -57,6 +57,7 @@
                     {% EndIf %}
                     <!--- ASKIA QUESTIONS HERE -->
                     <askia-questions />
+
                     <div class="navigation">
                         {% If CurrentADP.Var("display_previous") = "yes" Then %}
                         <input type="submit" name="Previous" class="btn secondary keyframe {%:= classDisabled %}" value="{%= CurrentADP.Var("previous_caption") %}" {%:= attrDisabled %} role="button" tabindex="0"/>
@@ -99,6 +100,33 @@
         {%:= CurrentADP.Var("footHTML") %}
         <askia-foot />
         <script>
+        {%
+          Dim j
+          Dim ar = CurrentQuestion.AvailableResponses
+          For j = 1 To ar.Count
+
+          Dim lastDigs = ar[j].InputName().Substring(2)
+          Dim resId = ar[j].ID
+        %}
+
+          var r = "askia-input{%:= lastDigs %}_{%:= resId %}";
+          var tdNode = document.getElementById(r).parentNode;
+          {% If (ar[j].IsHeader = True) Then %}
+            tdNode.classList.add("askia-response-header");
+            tdNode.classList.remove("askia-response");
+            let labelText = tdNode.querySelector(".askia-response-label").innerText;
+
+            let last;
+            while (last = tdNode.lastChild) tdNode.removeChild(last);
+
+            tdNode.innerText = labelText;
+          {% EndIf %}
+
+          {% If (ar[j].IsOpen = True) Then %}
+            tdNode.classList.add("askia-semi-open");
+          {% EndIf %}
+
+        {% Next j %}
 
         function modalShow(duration,type){
           var modal = document.getElementById('modalOnSubmit');
@@ -115,6 +143,8 @@
           }
         }
 
+
+        // Inject error module
         {% IF (CurrentQuestions.Errors.Count > 0) THEN
           Import ErrorModule
           Dim errorUL
@@ -222,8 +252,8 @@
            arr = txt.split("|");
            txt = txt.trim();
            (arr.length > 1) ?
-           ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", arr[1].trim()) : null), labelElem.innerHTML = arr[0]) :
-           ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", txt) : null), labelElem.innerHTML = htmlContent);
+              ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", arr[1].trim()) : null), labelElem.innerHTML = arr[0]) :
+                  ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", txt) : null), labelElem.innerHTML = htmlContent);
           }
 
           document.querySelector('.askiaquestions').focus();
@@ -235,7 +265,7 @@
 
           y = document.querySelectorAll(".askia-response");
           for (i = 0; i < y.length; i++) {
-            if (!(y[i].classList.contains("gridmyresponseheader")))
+            if (!(y[i].classList.contains("gridmyresponseheader")) && !(y[i].classList.contains("askia-response-header")))
               y[i].tabIndex = "0",
                 setLabelText(y[i].children[2]);
           }
