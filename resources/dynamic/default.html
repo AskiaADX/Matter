@@ -247,8 +247,8 @@
           // Set aria-label and innertext of Label
           function setLabelText(labelElem) {
            let ariaLabel, arr, txt, htmlContent;
-           txt = labelElem.textContent;
-           htmlContent = labelElem.textContent;
+           txt = labelElem.textContent || labelElem.innerText;
+           htmlContent = labelElem.textContent || labelElem.innerText;
            arr = txt.split("|");
            txt = txt.trim();
            (arr.length > 1) ?
