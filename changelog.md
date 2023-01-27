@@ -38,3 +38,4 @@ v3.0.0      - ADPSchema 2.2.0
     v3.5.1  - Simple fix for TemplateAll
   v3.6.0    - Native support for response-headers
     v3.6.1  - Fixed - IE8/Design IE Preview, textContent not works
+    v3.6.2  - setLabelText to changeResponseLabel
