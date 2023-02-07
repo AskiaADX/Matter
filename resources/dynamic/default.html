@@ -15,13 +15,13 @@
     <body>
         <header id="nav" class="large">
             {%
-            Dim qid = CurrentQuestion.id
-            Dim attrDisabled = On(Interview.IsFirstPage, "disabled=\"disabled\"", "")
-            Dim classDisabled = On(Interview.IsFirstPage, "disabled", "")
-            Dim adpSurveyName = CurrentADP.Var("survey_name")
-            Dim adpSurveyLogoSrc = CurrentADP.Var("survey_logo_src")
-            Dim adpSurveyLogoAlt = CurrentADP.Var("survey_logo_alt")
-            Dim errors_caption = CurrentADP.Var("errors_caption")
+            DIM qid = CURRENTQUESTION.id
+            DIM attrDisabled = On(Interview.IsFirstPage, "disabled=\"disabled\"", "")
+            DIM classDisabled = On(Interview.IsFirstPage, "disabled", "")
+            DIM adpSurveyName = CurrentADP.Var("survey_name")
+            DIM adpSurveyLogoSrc = CurrentADP.Var("survey_logo_src")
+            DIM adpSurveyLogoAlt = CurrentADP.Var("survey_logo_alt")
+            DIM errors_caption = CurrentADP.Var("errors_caption")
             If (adpSurveyLogoSrc <> "") Then  %}
             <div class="logo-survey"><img src="{%= adpSurveyLogoSrc %}" alt="{%= adpSurveyLogoAlt %}" /></div>
             {% End If %}
@@ -38,7 +38,7 @@
                     <div class="progress-bar"></div>
                     {% If CurrentADP.Var("display_progress_value") = "yes" Then %}
                     <div class="progress-value">{%= Interview.Progress.ToInt() %}%</div>
-                    {% EndIf %}
+                    {% ENDIF %}
                 </div>
             </div>
         </header>
@@ -54,7 +54,7 @@
                     <div class="askia-errors-summary">
                         <!--insert errors here -->
                     </div>
-                    {% EndIf %}
+                    {% ENDIF %}
                     <!--- ASKIA QUESTIONS HERE -->
                     <askia-questions />
 
@@ -72,11 +72,11 @@
                 </div>
 
               {%
-                Dim closeType = CurrentADP.Var("modal_close_type")
-                Dim duration = CurrentADP.Var("duration")
-                Dim numOfAttempts = CurrentADP.Var("num_of_attempts")
-                Dim showModal = CurrentADP.Var("show_modal")
-                Dim modalContent = CurrentADP.Var("modal_content")
+                DIM closeType = CurrentADP.Var("modal_close_type")
+                DIM duration = CurrentADP.Var("duration")
+                DIM numOfAttempts = CurrentADP.Var("num_of_attempts")
+                DIM showModal = CurrentADP.Var("show_modal")
+                DIM modalContent = CurrentADP.Var("modal_content")
               %}
 
               <div id="modalOnSubmit" class="modal">
@@ -101,32 +101,39 @@
         <askia-foot />
         <script>
         {%
-          Dim j
-          Dim ar = CurrentQuestion.AvailableResponses
-          For j = 1 To ar.Count
+          DIM j
+          DIM ar = CURRENTQUESTION.AVAILABLERESPONSES
+          DIM resId
 
-          Dim lastDigs = ar[j].InputName().Substring(2)
-          Dim resId = ar[j].ID
-        %}
+          FOR j = 1 To ar.COUNT
+            IF CURRENTQUESTION.TYPE = "single" THEN
+              resId = "askia-input" + ar[j].InputName().Substring(2) + "_" + ar[j].ID
+            ELSEIF CURRENTQUESTION.TYPE = "multiple" THEN
+              resId = "askia-input" + ar[j].InputName().Substring(2).Replace(" ","_")
+            ENDIF
 
-          var r = "askia-input{%:= lastDigs %}_{%:= resId %}";
-          var tdNode = document.getElementById(r).parentNode;
-          {% If (ar[j].IsHeader = True) Then %}
-            tdNode.classList.add("askia-response-header");
-            tdNode.classList.remove("askia-response");
-            let labelText = tdNode.querySelector(".askia-response-label").innerText;
+            IF CURRENTQUESTION.HASPARENTLOOP <> 1 THEN
+            %}
+              var r = "{%:= resId %}";
+              var tdNode = document.getElementById(r).parentNode;
+              {% IF (ar[j].IsHeader = True) THEN %}
+                tdNode.classList.add("askia-response-header");
+                tdNode.classList.remove("askia-response");
+                let labelText = tdNode.querySelector(".askia-response-label").innerText;
 
-            let last;
-            while (last = tdNode.lastChild) tdNode.removeChild(last);
+                let last;
+                while (last = tdNode.lastChild) tdNode.removeChild(last);
 
-            tdNode.innerText = labelText;
-          {% EndIf %}
+                tdNode.innerText = labelText;
+              {% ENDIF %}
 
-          {% If (ar[j].IsOpen = True) Then %}
-            tdNode.classList.add("askia-semi-open");
-          {% EndIf %}
+              {% IF (ar[j].IsOpen = True) THEN %}
+                tdNode.classList.add("askia-semi-open");
+              {% ENDIF %}
 
-        {% Next j %}
+          {% ENDIF %}
+
+        {% NEXT j %}
 
         function modalShow(duration,type){
           var modal = document.getElementById('modalOnSubmit');
@@ -147,7 +154,7 @@
         // Inject error module
         {% IF (CurrentQuestions.Errors.Count > 0) THEN
           Import ErrorModule
-          Dim errorUL
+          DIM errorUL
           errorUL = ErrorModule::getErrorUL(errors_caption.ToString())
         %}
           var errorUL = "{%:= errorUL %}";
@@ -226,8 +233,8 @@
                       event.preventDefault();
                       modalShow('{%= duration %}','{%= closeType %}');
                     }
-                  {% EndIf %}
-                {% EndIf %}
+                  {% ENDIF %}
+                {% ENDIF %}
 
                 if ((el.nodeName === "TD" || el.nodeName === "LI" ) && el.className.indexOf("askia-response") >= 0 && el.className.indexOf("askia-response-label") < 0) {
 		                document.getElementById(el.lastElementChild.attributes.for.value).click();
@@ -244,30 +251,30 @@
 
           });
 
-          // Set aria-label and innertext of Label
-          function setLabelText(labelElem) {
+          // Set aria-label and innertext of response-label
+          function changeResponseLabel(labelElem) {
            let ariaLabel, arr, txt, htmlContent;
-           txt = labelElem.textContent;
-           htmlContent = labelElem.textContent;
+           txt = labelElem.textContent || labelElem.innerText;
+           htmlContent = labelElem.innerHTML;
            arr = txt.split("|");
-           txt = txt.trim();
+
            (arr.length > 1) ?
-              ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", arr[1].trim()) : null), labelElem.innerHTML = arr[0]) :
-                  ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", txt) : null), labelElem.innerHTML = htmlContent);
+              ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", arr[1].trim()) : null), labelElem.innerHTML = htmlContent.split("|")[0]) :
+                  ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", txt.trim()) : null), labelElem.innerHTML = htmlContent);
           }
 
           document.querySelector('.askiaquestions').focus();
           x = document.querySelectorAll(".response");
           for (i = 0; i < x.length; i++) {
             x[i].tabIndex = "0";
-            (x[i].classList.contains("responseItem")) ? setLabelText(x[i].children[0]) : setLabelText(x[i].children[2]);
+            (x[i].classList.contains("responseItem")) ? changeResponseLabel(x[i].children[0]) : changeResponseLabel(x[i].children[2]);
           }
 
           y = document.querySelectorAll(".askia-response");
           for (i = 0; i < y.length; i++) {
-            if (!(y[i].classList.contains("gridmyresponseheader")) && !(y[i].classList.contains("askia-response-header")))
+            if (!(y[i].classList.contains("gridmyresponseheader")) && !(y[i].classList.contains("askia-response-header")) && !(y[i].classList.contains("gridmyresponse")))
               y[i].tabIndex = "0",
-                setLabelText(y[i].children[2]);
+                changeResponseLabel(y[i].querySelector(".askia-response-label"));
           }
 
           // add focus to the question text
