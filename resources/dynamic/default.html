@@ -114,8 +114,10 @@
 
             IF CURRENTQUESTION.HASPARENTLOOP <> 1 THEN
             %}
-              var r = "{%:= resId %}";
-              var tdNode = document.getElementById(r).parentNode;
+              var r = "{%:= resId %}"; var tdNode;
+              if(document.getElementById(r))
+                  tdNode = document.getElementById(r).parentNode;
+
               {% IF (ar[j].IsHeader = True) THEN %}
                 tdNode.classList.add("askia-response-header");
                 tdNode.classList.remove("askia-response");
@@ -253,14 +255,13 @@
 
           // Set aria-label and innertext of response-label
           function changeResponseLabel(labelElem) {
-           let ariaLabel, arr, txt, htmlContent;
+           let ariaLabel, arr, txt;
            txt = labelElem.textContent || labelElem.innerText;
-           htmlContent = labelElem.innerHTML;
            arr = txt.split("|");
 
            (arr.length > 1) ?
-              ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", arr[1].trim()) : null), labelElem.innerHTML = htmlContent.split("|")[0]) :
-                  ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", txt.trim()) : null), labelElem.innerHTML = htmlContent);
+              ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", arr[1].trim()) : null), labelElem.innerHTML = arr[0]) :
+                  ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", txt.trim()) : null), labelElem.innerHTML = txt);
           }
 
           document.querySelector('.askiaquestions').focus();
