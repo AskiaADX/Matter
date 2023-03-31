@@ -257,15 +257,18 @@
 
           // Set aria-label and innertext of response-label
           function changeResponseLabel(labelElem, isNativeControl) {
-           let ariaLabel, arr, txt;
+           var ariaLabel, arr, txt, isSemiOpen, semiOpenElem;
            txt = labelElem.textContent || labelElem.innerText;
            arr = txt.split("|");
 
-           console.log(txt, isNativeControl);
+           isSemiOpen = (labelElem.lastElementChild) ? labelElem.lastElementChild.lastElementChild.classList.contains("otherText") : false;
+           semiOpenElem = labelElem.lastElementChild;
 
            (arr.length > 1) ?
               ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", arr[1].trim()) : null), labelElem.innerHTML = ((isNativeControl) ? labelElem.innerHTML.split("|")[0] : arr[0])) :
                   ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", txt.trim()) : null), labelElem.innerHTML = ((isNativeControl) ? labelElem.innerHTML : txt));
+           if(isSemiOpen) labelElem.appendChild(semiOpenElem);
+
           }
 
           var isNativeControl = 0;
