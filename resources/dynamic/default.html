@@ -261,7 +261,7 @@
            txt = labelElem.textContent || labelElem.innerText;
            arr = txt.split("|");
 
-           isSemiOpen = (labelElem.lastElementChild) ? labelElem.lastElementChild.lastElementChild.classList.contains("otherText") : false;
+           isSemiOpen = (labelElem.lastElementChild) ? ((labelElem.lastElementChild.tagName == "DIV") ? labelElem.lastElementChild.lastElementChild.classList.contains("otherText") : false) : false;
            semiOpenElem = labelElem.lastElementChild;
 
            (arr.length > 1) ?
