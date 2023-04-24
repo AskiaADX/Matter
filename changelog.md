@@ -41,3 +41,4 @@ v3.0.0      - ADPSchema 2.2.0
     v3.6.2  - setLabelText to changeResponseLabel
     v3.6.3  - Fixed - html tags are not rendered
     v3.6.4  - Fixed - small glitch/html tags are not rendered
+    v3.6.6  - 
