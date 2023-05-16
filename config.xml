@@ -7,8 +7,8 @@
   <info>
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
-    <version>3.6.6</version>
-    <date>2023-04-24</date>
+    <version>3.7.0</version>
+    <date>2023-05-16</date>
     <description><![CDATA[Matter Askia Design Page]]></description>
     <company>askia</company>
     <author><![CDATA[Jerome Duparc <jeromed@askia.com> Paul McDuffee Nevin<paul@askia.com> Vincent Tellier<vincent@askia.com>]]></author>
@@ -22,8 +22,7 @@
       <content fileName="logo-askia-rvb.png" type="image" mode="static" position="none" />
       <content fileName="logo-askia.svg" type="image" mode="static" position="none" />
       <content fileName="askia.live.routing.js" type="javascript" mode="dynamic" position="head" />
-      <content fileName="html5-ie.js" type="javascript" mode="static" position="head" />
-      <content fileName="normalize.min.css" type="css" mode="static" position="head" />
+      <content fileName="html5-ie.js" type="javascript" mode="static" position="head" />      <content fileName="normalize.min.css" type="css" mode="static" position="head" />
       <content fileName="styles.min.css" type="css" mode="static" position="head" />
       <content fileName="styles.css" type="css" mode="dynamic" position="head" />
       <content fileName="askia.ajax.min.js" type="javascript" mode="static" position="foot" />
@@ -75,6 +74,14 @@
       <property xsi:type="standardProperty" id="ribbon_footer_background_color" name="Ribbon and footer background color" type="color" mode="dynamic" require="true" visible="false" colorFormat="rgba">
         <description><![CDATA[The background color of the ribbon and footer]]></description>
         <value><![CDATA[{%= Theme.PrimaryColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="test_mode_enabled" name="Survey Testing Information" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Show/Hide Survey Testing Information]]></description>
+        <value><![CDATA[no]]></value>
+        <options>
+          <option value="yes" text="Show" />
+          <option value="no" text="Hide" />
+        </options>
       </property>
     </category>
     <category id="buttons" name="Buttons">

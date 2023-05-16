@@ -115,6 +115,7 @@
             IF CURRENTQUESTION.HASPARENTLOOP <> 1 THEN
             %}
               var r = "{%:= resId %}"; var tdNode;
+              console.log(r);
               if(document.getElementById(r))
                   tdNode = document.getElementById(r).parentNode;
 
@@ -283,17 +284,29 @@
           }
 
           // add focus to the question text
-          var z = document.querySelectorAll(".askia-question-label");
-          for (var i = 0; i < z.length; i++) {
-            if ((window.getComputedStyle(z[i]).display != "none") & (window.getComputedStyle(z[i]).visibility != "hidden"))
-              z[i].setAttribute("role", "heading");
+          {%
+            DIM x
+            DIM st = ""
+            FOR x = 1 TO CURRENTQUESTIONS.COUNT
+              IF CURRENTQUESTIONS[x].VISIBLEINDATAENTRY = TRUE THEN
+                st = st + "," + CURRENTQUESTIONS[x].SHORTCUT
+              ENDIF
+            NEXT x
+          %}
+          var arr = ("{%:= st.SubString(2) %}").split(",");
+          var cp = document.querySelectorAll(".askia-question-label");
+          for (var i = 0; i < cp.length; i++) {
+            if ((window.getComputedStyle(cp[i]).display != "none") & (window.getComputedStyle(cp[i]).visibility != "hidden")) cp[i].setAttribute("role", "heading");
 
-              //Headings
-              let heading = document.createElement("h1");
-              heading.innerHTML = z[i].innerHTML,
+            var testModeLabel = cp[i].innerHTML;
+            if('{%= CurrentADP.Var("test_mode_enabled") %}' == 'yes') testModeLabel = '<span class="q-tag">' + arr[i] + '</span>' + cp[i].innerHTML;
+
+            //Headings
+            var heading = document.createElement("h1");
+              heading.innerHTML = testModeLabel,
                 heading.style.fontWeight = "normal",
-                  z[i].innerHTML = "",
-                    z[i].appendChild(heading);
+                  cp[i].innerHTML = "",
+                    cp[i].appendChild(heading);
           }
 
           var q = document.querySelectorAll("INPUT[type=text], TEXTAREA, INPUT[type=number], INPUT[type=password]");
