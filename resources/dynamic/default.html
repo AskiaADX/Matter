@@ -257,13 +257,22 @@
 
           // Set aria-label and innertext of response-label for native-responses
           function changeResponseLabel(labelElem) {
-            var ariaLabel, arr, txt, htmlContent;
-            txt = labelElem.textContent || labelElem.innerText;
-            htmlContent = labelElem.innerHTML;
-            arr = txt.split("|");
-            (arr.length > 1) ?
-                ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", arr[1].trim()) : null), labelElem.innerHTML = htmlContent.split("|")[0]) :
-                    ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", txt.trim()) : null), labelElem.innerHTML = htmlContent);
+            var ariaLabel = labelElem.getAttribute("aria-label");
+            var txt = labelElem.textContent || labelElem.innerText;
+            var htmlContent = labelElem.innerHTML;
+            var arr = txt.split("|");
+
+            if (arr.length > 1) {
+              if (!ariaLabel) {
+                labelElem.setAttribute("aria-label", arr[1].trim());
+              }
+              labelElem.innerHTML = htmlContent.split("|")[0];
+            } else {
+              if (!ariaLabel) {
+                labelElem.setAttribute("aria-label", txt.trim());
+              }
+              labelElem.innerHTML = htmlContent;
+            }
           }
 
           document.querySelector('.askiaquestions').focus();
@@ -276,29 +285,17 @@
           }
 
           // add focus to the question text
-          {%
-            DIM x
-            DIM st = ""
-            FOR x = 1 TO CURRENTQUESTIONS.COUNT
-              IF CURRENTQUESTIONS[x].VISIBLEINDATAENTRY = TRUE THEN
-                st = st + "," + CURRENTQUESTIONS[x].SHORTCUT
-              ENDIF
-            NEXT x
-          %}
-          var arr = ("{%:= st.SubString(2) %}").split(",");
-          var cp = document.querySelectorAll(".askia-question-label");
-          for (var i = 0; i < cp.length; i++) {
-            if ((window.getComputedStyle(cp[i]).display != "none") & (window.getComputedStyle(cp[i]).visibility != "hidden")) cp[i].setAttribute("role", "heading");
-
-            var testModeLabel = cp[i].innerHTML;
-            if('{%= CurrentADP.Var("test_mode_enabled") %}' == 'yes') testModeLabel = '<span class="q-tag">' + arr[i] + '</span>' + cp[i].innerHTML;
+          var z = document.querySelectorAll(".askia-question-label");
+          for (var i = 0; i < z.length; i++) {
+            if ((window.getComputedStyle(z[i]).display != "none") & (window.getComputedStyle(z[i]).visibility != "hidden"))
+              z[i].setAttribute("role", "heading");
 
             //Headings
             var heading = document.createElement("h1");
-              heading.innerHTML = testModeLabel,
+              heading.innerHTML = z[i].innerHTML,
                 heading.style.fontWeight = "normal",
-                  cp[i].innerHTML = "",
-                    cp[i].appendChild(heading);
+                  z[i].innerHTML = "",
+                    z[i].appendChild(heading);
           }
 
           var q = document.querySelectorAll("INPUT[type=text], TEXTAREA, INPUT[type=number], INPUT[type=password]");

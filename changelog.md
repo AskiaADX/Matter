@@ -42,4 +42,4 @@ v3.0.0      - ADPSchema 2.2.0
     v3.6.3  - Fixed - html tags are not rendered
     v3.6.4  - Fixed - small glitch/html tags are not rendered
     v3.6.6  - 
-  v3.7.0    - Survey test information
+    v3.6.7  - Survey-test-info feature removed
