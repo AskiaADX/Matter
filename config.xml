@@ -7,8 +7,8 @@
   <info>
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
-    <version>3.7.0</version>
-    <date>2023-05-16</date>
+    <version>3.6.7</version>
+    <date>2023-05-19</date>
     <description><![CDATA[Matter Askia Design Page]]></description>
     <company>askia</company>
     <author><![CDATA[Jerome Duparc <jeromed@askia.com> Paul McDuffee Nevin<paul@askia.com> Vincent Tellier<vincent@askia.com>]]></author>
@@ -75,14 +75,6 @@
       <property xsi:type="standardProperty" id="ribbon_footer_background_color" name="Ribbon and footer background color" type="color" mode="dynamic" require="true" visible="false" colorFormat="rgba">
         <description><![CDATA[The background color of the ribbon and footer]]></description>
         <value><![CDATA[{%= Theme.PrimaryColor %}]]></value>
-      </property>
-      <property xsi:type="standardProperty" id="test_mode_enabled" name="Survey Testing Information" type="string" mode="dynamic" require="true" visible="true">
-        <description><![CDATA[Show/Hide Survey Testing Information]]></description>
-        <value><![CDATA[no]]></value>
-        <options>
-          <option value="yes" text="Show" />
-          <option value="no" text="Hide" />
-        </options>
       </property>
     </category>
     <category id="buttons" name="Buttons">

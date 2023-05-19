@@ -122,9 +122,9 @@
                 if (tdNode) {
                   tdNode.classList.add("askia-response-header");
                   tdNode.classList.remove("askia-response");
-                  let labelText = tdNode.querySelector(".askia-response-label").innerText;
+                  var labelText = tdNode.querySelector(".askia-response-label").innerText;
 
-                  let last;
+                  var last;
                   while (last = tdNode.lastChild) tdNode.removeChild(last);
 
                   tdNode.innerText = labelText;
@@ -255,57 +255,47 @@
 
           });
 
-          // Set aria-label and innertext of response-label
-          function changeResponseLabel(labelElem, isNativeControl) {
-           var ariaLabel, arr, txt, isSemiOpen, semiOpenElem;
-           txt = labelElem.textContent || labelElem.innerText;
-           arr = txt.split("|");
+          // Set aria-label and innertext of response-label for native-responses
+          function changeResponseLabel(labelElem) {
+            var ariaLabel = labelElem.getAttribute("aria-label");
+            var txt = labelElem.textContent || labelElem.innerText;
+            var htmlContent = labelElem.innerHTML;
+            var arr = txt.split("|");
 
-           (arr.length > 1) ?
-              ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", arr[1].trim()) : null), labelElem.innerHTML = arr[0]) :
-                  ((!(labelElem.hasAttribute("aria-label")) ? labelElem.setAttribute("aria-label", txt.trim()) : null), labelElem.innerHTML = ((isNativeControl) ? labelElem.innerHTML : txt));
+            if (arr.length > 1) {
+              if (!ariaLabel) {
+                labelElem.setAttribute("aria-label", arr[1].trim());
+              }
+              labelElem.innerHTML = htmlContent.split("|")[0];
+            } else {
+              if (!ariaLabel) {
+                labelElem.setAttribute("aria-label", txt.trim());
+              }
+              labelElem.innerHTML = htmlContent;
+            }
           }
-
-          var isNativeControl = 0;
 
           document.querySelector('.askiaquestions').focus();
-          x = document.querySelectorAll(".response");
-          for (i = 0; i < x.length; i++) {
-            x[i].tabIndex = "0";
-            (x[i].classList.contains("responseItem")) ? changeResponseLabel(x[i].children[0], isNativeControl) : changeResponseLabel(x[i].children[2], isNativeControl);
-          }
 
-          y = document.querySelectorAll(".askia-response");
+          y = document.querySelectorAll(".askia-response,.response");
           for (i = 0; i < y.length; i++) {
-            // if (!(y[i].classList.contains("gridmyresponseheader")) && !(y[i].classList.contains("askia-response-header")) && !(y[i].classList.contains("gridmyresponse")))
-            y[i].tabIndex = "0"
-            if (y[i].classList.contains("myresponse")) isNativeControl = 0, changeResponseLabel(y[i].querySelector(".askia-response-label"), isNativeControl);
+            y[i].tabIndex = "0";
+            var responseLabel = y[i].querySelector("label.askia-response-label");
+            if (responseLabel) changeResponseLabel(responseLabel);
           }
 
           // add focus to the question text
-          {%
-            DIM x
-            DIM st = ""
-            FOR x = 1 TO CURRENTQUESTIONS.COUNT
-              IF CURRENTQUESTIONS[x].VISIBLEINDATAENTRY = TRUE THEN
-                st = st + "," + CURRENTQUESTIONS[x].SHORTCUT
-              ENDIF
-            NEXT x
-          %}
-          var arr = ("{%:= st.SubString(2) %}").split(",");
-          var cp = document.querySelectorAll(".askia-question-label");
-          for (var i = 0; i < cp.length; i++) {
-            if ((window.getComputedStyle(cp[i]).display != "none") & (window.getComputedStyle(cp[i]).visibility != "hidden")) cp[i].setAttribute("role", "heading");
-
-            var testModeLabel = cp[i].innerHTML;
-            if('{%= CurrentADP.Var("test_mode_enabled") %}' == 'yes') testModeLabel = '<span class="q-tag">' + arr[i] + '</span>' + cp[i].innerHTML;
+          var z = document.querySelectorAll(".askia-question-label");
+          for (var i = 0; i < z.length; i++) {
+            if ((window.getComputedStyle(z[i]).display != "none") & (window.getComputedStyle(z[i]).visibility != "hidden"))
+              z[i].setAttribute("role", "heading");
 
             //Headings
             var heading = document.createElement("h1");
-              heading.innerHTML = testModeLabel,
+              heading.innerHTML = z[i].innerHTML,
                 heading.style.fontWeight = "normal",
-                  cp[i].innerHTML = "",
-                    cp[i].appendChild(heading);
+                  z[i].innerHTML = "",
+                    z[i].appendChild(heading);
           }
 
           var q = document.querySelectorAll("INPUT[type=text], TEXTAREA, INPUT[type=number], INPUT[type=password]");
