@@ -128,16 +128,51 @@
                   while (last = tdNode.lastChild) tdNode.removeChild(last);
 
                   tdNode.innerText = labelText;
-                }
+                } 
               {% ENDIF %}
 
-              {% IF (ar[j].IsOpen = True) THEN %}
-                if(tdNode) tdNode.classList.add("askia-semi-open");
+              {% IF (ar[j].IsOpen = True) THEN 
+                DIM inputName = ar[j].OpenQuestion.InputName()
+                Dim inputValue = ar[j].OpenQuestion.InputValue()
+              %}
+                if(tdNode) {
+                  tdNode.classList.add("askia-semi-open");
+                  var resLabel = tdNode.querySelector('.askia-response-label');
+                  
+                  var divElement = document.createElement('div');
+                  divElement.setAttribute('style', 'overflow:hidden');
+                  divElement.innerHTML = '<input type="text" aria-label="Other" class="otherText" id="{%= inputName %}" name="{%= inputName %}" value="{%= inputValue %}" autocomplete="off">';
+
+                  divElement.addEventListener('input', function() {
+                    console.log("INPUT EVT");
+                    triggerRouting("{%= ar[j].OpenQuestion.Shortcut %}");
+                  });
+
+                  resLabel.appendChild(divElement);
+
+                  // var txtElement = resLabel.querySelector("#{%= inputName %}");
+                  // console.log(txtElement);
+                }
               {% ENDIF %}
 
           {% ENDIF %}
 
         {% NEXT j %}
+        
+        /**
+       * Trigger the ajax request for live routings
+       *
+       * @param {String} shortcut Shortcut of the question
+       */
+        function triggerRouting(shortcut) {
+            if (window.askia
+                && window.arrLiveRoutingShortcut
+                && window.arrLiveRoutingShortcut.length > 0
+                && window.arrLiveRoutingShortcut.indexOf(shortcut) >= 0) {
+                  // askia.defaultEventActions.askiaShowResponses = executeShowHideResponses;
+                  askia.triggerAnswer();
+            }
+        }
 
         function modalShow(duration,type){
           var modal = document.getElementById('modalOnSubmit');
@@ -256,7 +291,7 @@
           });
 
           // Set aria-label and innertext of response-label for native-responses
-          function changeResponseLabel(labelElem) {
+          function changeResponseLabel(labelElem, isSemiOpen) {
             var ariaLabel = labelElem.getAttribute("aria-label");
             var txt = labelElem.textContent || labelElem.innerText;
             var htmlContent = labelElem.innerHTML;
@@ -264,9 +299,13 @@
 
             if (arr.length > 1) {
               if (!ariaLabel) {
-                labelElem.setAttribute("aria-label", arr[1].trim());
+                  labelElem.setAttribute("aria-label", arr[1].trim());
               }
-              labelElem.innerHTML = htmlContent.split("|")[0];
+              if(isSemiOpen){
+                labelElem.innerHTML = htmlContent.replace(('|'+arr[1].trim()), '');
+              } else {
+                labelElem.innerHTML = htmlContent.split("|")[0];                
+              }
             } else {
               if (!ariaLabel) {
                 labelElem.setAttribute("aria-label", txt.trim());
@@ -281,7 +320,8 @@
           for (i = 0; i < y.length; i++) {
             y[i].tabIndex = "0";
             var responseLabel = y[i].querySelector("label.askia-response-label");
-            if (responseLabel) changeResponseLabel(responseLabel);
+            var isSemiOpen = y[i].classList.contains('askia-semi-open') ? true : false;
+            if (responseLabel) changeResponseLabel(responseLabel, isSemiOpen);
           }
 
           // add focus to the question text
