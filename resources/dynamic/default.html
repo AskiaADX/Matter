@@ -1,3 +1,6 @@
+{%
+  DIM ar = CURRENTQUESTION.AVAILABLERESPONSES
+%}
 <!DOCTYPE html>
 <html lang="{%:= Interview.Language.Abbr.ToLowerCase().Left(2) %}" translate="no">
     <head>
@@ -44,7 +47,16 @@
         </header>
         <div class="ribbon"></div>
         <div class="main">
-
+            {%
+              DIM i
+              FOR i = 1 TO ar.COUNT
+                IF (ar[i].IsOpen = True) THEN 
+                  DIM semOpenInputName = ar[i].OpenQuestion.InputName()
+                  Dim semiOpenInputValue = ar[i].OpenQuestion.InputValue()
+            %}
+              <input type="text" id="{%= semOpenInputName %}" data-id="{%= semOpenInputName %}" name="{%= semOpenInputName %}" value="{%= semiOpenInputValue %}">
+            {% ENDIF %}
+            {% NEXT i %}
             <!--- ASKIA FORM BEGINS HERE -->
             <askia-form>
                 {%:= CurrentADP.Var("before_questions") %}
@@ -102,7 +114,6 @@
         <script>
         {%
           DIM j
-          DIM ar = CURRENTQUESTION.AVAILABLERESPONSES
           DIM resId
 
           FOR j = 1 To ar.COUNT
@@ -128,12 +139,13 @@
                   while (last = tdNode.lastChild) tdNode.removeChild(last);
 
                   tdNode.innerText = labelText;
-                } 
+                }
               {% ENDIF %}
 
               {% IF (ar[j].IsOpen = True) THEN 
                 DIM inputName = ar[j].OpenQuestion.InputName()
                 Dim inputValue = ar[j].OpenQuestion.InputValue()
+                Dim semiOpenShortcut = ar[j].OpenQuestion.Shortcut
               %}
                 if(tdNode) {
                   tdNode.classList.add("askia-semi-open");
@@ -141,17 +153,17 @@
                   
                   var divElement = document.createElement('div');
                   divElement.setAttribute('style', 'overflow:hidden');
-                  divElement.innerHTML = '<input type="text" aria-label="Other" class="otherText" id="{%= inputName %}" name="{%= inputName %}" value="{%= inputValue %}" autocomplete="off">';
-
-                  divElement.addEventListener('input', function() {
-                    console.log("INPUT EVT");
-                    triggerRouting("{%= ar[j].OpenQuestion.Shortcut %}");
-                  });
+                  divElement.innerHTML = '<input type="text" aria-label="Other" class="otherText" id="other_{%= j %}" name="other_{%= j %}" value="" autocomplete="off">';
 
                   resLabel.appendChild(divElement);
 
-                  // var txtElement = resLabel.querySelector("#{%= inputName %}");
-                  // console.log(txtElement);
+                  resLabel.oninput = function(e){
+                    if (e.target.type == 'text') {
+                      // console.log("blah blah..");
+                      document.querySelector('#{%= inputName %}').value = e.target.value;
+                      triggerRouting("{%= semiOpenShortcut %}");
+                    }
+                  }
                 }
               {% ENDIF %}
 
