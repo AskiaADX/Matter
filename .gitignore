@@ -35,3 +35,4 @@ gruntfile.js
 # TMP #
 ################
 *.tmp/
+.adxstudio/workspace.json
