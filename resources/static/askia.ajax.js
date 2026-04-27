@@ -157,6 +157,9 @@
     xhr.send(query.data || null);
   };
 
+  // Assign a version for future patches management
+  askia.ajax.version = "2.0";
+
 
   /* ---======== Askia Events Management ========--- */
 
@@ -305,10 +308,12 @@
   function onLiveRoutingSuccess (text) {
     var json = JSON.parse(text);
     var actions = json.actions || [];
-    var i;
-    var l;
-    var itemAction;
-    var eventName;
+    var i, l, itmeAction, eventName;
+    var mri = json.mri || null;
+    var mriEl = document.querySelector('input[name="Mri"]');
+    if (mri && mriEl) {
+      mriEl.value = mri;
+    }
     for (i = 0, l = actions.length; i < l; i += 1) {
       itemAction = actions[i];
       eventName = 'askia' + capitalize(itemAction.action);
