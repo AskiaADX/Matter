@@ -1,4 +1,4 @@
-/* Matter Debug Mode draft 1. AskiaScript-generated data lives in default.html. */
+/* Matter Debug Mode v3.8.0 draft 3. AskiaScript-generated data lives in default.html. */
 (function () {
   'use strict';
   var panel = document.getElementById('matter-debug-panel');
@@ -8,12 +8,25 @@
   var button = document.getElementById('matter-debug-answer');
   var status = document.getElementById('matter-debug-status');
   var changed = [];
+  var panelStorageKey = 'matter.debug.panel.open';
 
   function openPanel(open) {
     panel.classList.toggle('is-open', open);
     content.hidden = !open;
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    try {
+      window.sessionStorage.setItem(panelStorageKey, open ? 'true' : 'false');
+    } catch (error) {
+      // Storage may be unavailable in embedded previews; the panel still works.
+    }
   }
+  var restoreOpen = false;
+  try {
+    restoreOpen = window.sessionStorage.getItem(panelStorageKey) === 'true';
+  } catch (error) {
+    // Default to closed when the browser does not permit session storage.
+  }
+  openPanel(restoreOpen);
   toggle.addEventListener('click', function () {
     openPanel(toggle.getAttribute('aria-expanded') !== 'true');
   });

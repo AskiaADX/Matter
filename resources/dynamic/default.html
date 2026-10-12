@@ -333,17 +333,26 @@
           <div id="matter-debug-content" hidden>
             <h2>Debug Mode</h2>
             <p>Current question: <strong>{%= CurrentQuestion.Shortcut %}</strong></p>
-            <button id="matter-debug-answer" type="button">Auto Answer + Next</button>
-            <p id="matter-debug-status" role="status" aria-live="polite">Fill this page and advance once.</p>
+            <button id="matter-debug-answer" type="button">Auto Answer</button>
+            <p id="matter-debug-status" role="status" aria-live="polite">Fill this page and advance.</p>
             <h3>Jump to Section</h3>
             <ul>
               {%
               Dim matterDebugNavQuestions = Survey.Questions.FilterByTag("Nav")
               Dim matterDebugNavIndex
+              Dim matterDebugNavURL
+              Dim matterDebugNavPosition
               For matterDebugNavIndex = 1 To matterDebugNavQuestions.Count
                 Dim matterDebugNavQuestion = matterDebugNavQuestions[matterDebugNavIndex]
+                'Restore the supplied navigation URL format: target by shortcut, not pos.
+                matterDebugNavURL = matterDebugNavQuestion.GotoURL()
+                matterDebugNavPosition = matterDebugNavURL.IndexOf("&pos")
+                If matterDebugNavPosition > 0 Then
+                  matterDebugNavURL = matterDebugNavURL.Left(matterDebugNavPosition - 1)
+                EndIf
+                matterDebugNavURL = matterDebugNavURL + "&shortcut=" + matterDebugNavQuestion.Shortcut + "&ran=" + TrueRandom(9999999)
               %}
-              <li><a href="{%= matterDebugNavQuestion.GotoURL() %}">{%= matterDebugNavQuestion.Shortcut %}</a></li>
+              <li><a href="{%= matterDebugNavURL %}">{%= matterDebugNavQuestion.Shortcut %}</a></li>
               {% Next matterDebugNavIndex %}
             </ul>
             {% If matterDebugNavQuestions.Count = 0 Then %}
