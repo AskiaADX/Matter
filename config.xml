@@ -7,8 +7,8 @@
   <info>
     <name>Matter</name>
     <guid>10926820-e66b-4e74-9ed0-ef116a75fc29</guid>
-    <version>3.7.0</version>
-    <date>2026-04-20</date>
+    <version>3.8.0</version>
+    <date>2026-10-12</date>
     <description><![CDATA[Matter Askia Design Page]]></description>
     <company>askia</company>
     <author><![CDATA[Jerome Duparc <jeromed@askia.com> Paul McDuffee Nevin<paul@askia.com> Vincent Tellier<vincent@askia.com>]]></author>
@@ -27,11 +27,20 @@
       <content fileName="styles.min.css" type="css" mode="static" position="head" />
       <content fileName="styles.css" type="css" mode="dynamic" position="head" />
       <content fileName="askia.ajax.min.js" type="javascript" mode="static" position="foot" />
+      <content fileName="matter.debug.js" type="javascript" mode="static" position="none" />
       <content fileName="error.asx" type="asx" mode="modules" position="none" />
     </output>
   </outputs>
   <properties>
     <category id="general" name="General">
+      <property xsi:type="standardProperty" id="debug_mode" name="Debug Mode" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Enable the debug panel and Auto Answer for this page. Can be driven by live AskiaScript.]]></description>
+        <value><![CDATA[false]]></value>
+        <options>
+          <option value="true" text="True" />
+          <option value="false" text="False" />
+        </options>
+      </property>
       <property xsi:type="standardProperty" id="window_title" name="Window title" type="string" require="true" visible="true">
         <description><![CDATA[Title of the window]]></description>
         <value><![CDATA[Askia Web Survey]]></value>

@@ -313,5 +313,124 @@
             if(v[i].innerText.trim() == "") v[i].remove();
           }
         </script>
+
+        <!-- Debug Mode: Askia evaluates this entire section for each page. -->
+        {% If CurrentADP.Var("debug_mode").ToString().ToLowerCase() = "true" Then %}
+        <style>
+          #matter-debug-panel { position:fixed; left:0; top:0; bottom:0; width:280px; max-width:85vw; z-index:10000; background:#fff; color:#222; box-shadow:2px 0 12px rgba(0,0,0,.3); transform:translateX(-100%); transition:transform .3s; font:14px/1.5 Arial,sans-serif; }
+          #matter-debug-panel.is-open { transform:translateX(0); }
+          #matter-debug-toggle { position:absolute; left:100%; top:110px; padding:12px 8px; border:1px solid #555; background:#222; color:#fff; cursor:pointer; }
+          #matter-debug-content { height:100%; overflow:auto; padding:20px; box-sizing:border-box; }
+          #matter-debug-content h2 { font-size:20px; margin:0 0 16px; }
+          #matter-debug-content button { padding:10px 15px; background:#222; color:#fff; border:0; cursor:pointer; }
+          #matter-debug-content button:disabled { opacity:.5; cursor:wait; }
+          #matter-debug-content a { color:#145c9e; text-decoration:underline; overflow-wrap:break-word; }
+          #matter-debug-status { margin-top:12px; }
+          #matter-debug-data { display:none; }
+        </style>
+        <aside id="matter-debug-panel" aria-label="Debug tools">
+          <button id="matter-debug-toggle" type="button" aria-expanded="false" aria-controls="matter-debug-content">Debug</button>
+          <div id="matter-debug-content" hidden>
+            <h2>Debug Mode</h2>
+            <p>Current question: <strong>{%= CurrentQuestion.Shortcut %}</strong></p>
+            <button id="matter-debug-answer" type="button">Auto Answer + Next</button>
+            <p id="matter-debug-status" role="status" aria-live="polite">Fill this page and advance once.</p>
+            <h3>Jump to Section</h3>
+            <ul>
+              {%
+              Dim matterDebugNavQuestions = Survey.Questions.FilterByTag("Nav")
+              Dim matterDebugNavIndex
+              For matterDebugNavIndex = 1 To matterDebugNavQuestions.Count
+                Dim matterDebugNavQuestion = matterDebugNavQuestions[matterDebugNavIndex]
+              %}
+              <li><a href="{%= matterDebugNavQuestion.GotoURL() %}">{%= matterDebugNavQuestion.Shortcut %}</a></li>
+              {% Next matterDebugNavIndex %}
+            </ul>
+            {% If matterDebugNavQuestions.Count = 0 Then %}
+            <p>No questions tagged Nav.</p>
+            {% EndIf %}
+          </div>
+        </aside>
+        <div id="matter-debug-data" hidden>
+        {%
+        Dim matterDebugIndex
+        Dim matterDebugResponseIndex
+        Dim matterDebugQuestions = CurrentQuestions
+        Dim matterDebugMin
+        Dim matterDebugMax
+        Dim matterDebugMinDate
+        Dim matterDebugMaxDate
+        Dim matterDebugValue
+        Dim matterDebugType
+        Dim matterDebugNonExclusive
+        Dim matterDebugExclusive
+        Dim matterDebugCount
+        For matterDebugIndex = 1 To matterDebugQuestions.Count
+          Dim matterDebugQuestion = matterDebugQuestions[matterDebugIndex]
+          matterDebugType = matterDebugQuestion.Type
+          matterDebugValue = ""
+          If matterDebugType = "numeric" Then
+            matterDebugMin = On(matterDebugQuestion.MinValue <> DK,matterDebugQuestion.MinValue,0)
+            matterDebugMax = On(matterDebugQuestion.MaxValue <> DK,matterDebugQuestion.MaxValue,100)
+            If matterDebugMax >= matterDebugMin Then
+              matterDebugValue = Range(matterDebugMin,matterDebugMax).Shuffle(TrueRandom(10000))[1].ToString()
+            EndIf
+          ElseIf matterDebugType = "open" Then
+            matterDebugValue = On((matterDebugQuestion.MaxValue > 0) and (matterDebugQuestion.LongCaption.Length > matterDebugQuestion.MaxValue),matterDebugQuestion.LongCaption.Left(matterDebugQuestion.MaxValue),matterDebugQuestion.LongCaption)
+          ElseIf matterDebugType = "datetime" Then
+            If matterDebugQuestion.IsTimeOnly Then
+              matterDebugType = "time"
+              matterDebugValue = Range(0,23).Shuffle(TrueRandom(10000))[1].Format("00").ToString() + ":" + Range(0,59).Shuffle(TrueRandom(10000))[1].Format("00").ToString() + ":00"
+            Else
+              matterDebugMinDate = On(matterDebugQuestion.MinDate.ToNumber() <> DK,matterDebugQuestion.MinValue.ToString(),Now.ToString().Split(" ")[1])
+              matterDebugMaxDate = On(matterDebugQuestion.MaxDate.ToNumber() <> DK,matterDebugQuestion.MaxValue.ToString(),(Now - 1).ToString().Split(" ")[1])
+              matterDebugValue = On(TrueRandom(2),matterDebugMinDate,matterDebugMaxDate)
+              If matterDebugQuestion.IsDateOnly Then
+                matterDebugType = "date"
+              Else
+                matterDebugValue = matterDebugValue + "," + Range(0,23).Shuffle(TrueRandom(10000))[1].Format("00").ToString() + ":" + Range(0,59).Shuffle(TrueRandom(10000))[1].Format("00").ToString() + ":00"
+              EndIf
+            EndIf
+          ElseIf matterDebugType = "single" Then
+            matterDebugNonExclusive = {}
+            For matterDebugResponseIndex = 1 To matterDebugQuestion.AvailableResponses.Count
+              If matterDebugQuestion.AvailableResponses[matterDebugResponseIndex].IsHeader = false Then
+                matterDebugNonExclusive.Insert(matterDebugQuestion.AvailableResponses[matterDebugResponseIndex].InputValue().ToNumber())
+              EndIf
+            Next matterDebugResponseIndex
+            If matterDebugNonExclusive.Count > 0 Then
+              matterDebugValue = matterDebugNonExclusive.Shuffle(TrueRandom(10000))[1].ToString()
+            EndIf
+          ElseIf matterDebugType = "multiple" Then
+            'Reset the lists for every question; responses must not leak between questions.
+            matterDebugNonExclusive = {}
+            matterDebugExclusive = {}
+            For matterDebugResponseIndex = 1 To matterDebugQuestion.AvailableResponses.Count
+              If matterDebugQuestion.AvailableResponses[matterDebugResponseIndex].IsHeader = false Then
+              If matterDebugQuestion.AvailableResponses[matterDebugResponseIndex].IsExclusive Then
+                matterDebugExclusive.Insert(matterDebugQuestion.AvailableResponses[matterDebugResponseIndex].InputValue().ToNumber())
+              Else
+                matterDebugNonExclusive.Insert(matterDebugQuestion.AvailableResponses[matterDebugResponseIndex].InputValue().ToNumber())
+              EndIf
+              EndIf
+            Next matterDebugResponseIndex
+            matterDebugMin = On(matterDebugQuestion.MinValue <> DK,matterDebugQuestion.MinValue,1)
+            matterDebugMax = On(matterDebugQuestion.MaxValue <> DK,matterDebugQuestion.MaxValue,matterDebugNonExclusive.Count)
+            If matterDebugMax > matterDebugNonExclusive.Count Then
+              matterDebugMax = matterDebugNonExclusive.Count
+            EndIf
+            If (matterDebugExclusive.Count > 0) and ((matterDebugMax < matterDebugMin) or (TrueRandom(2) = 1)) Then
+              matterDebugValue = matterDebugExclusive.Shuffle(TrueRandom(10000))[1].ToString()
+            ElseIf (matterDebugMax >= matterDebugMin) and (matterDebugNonExclusive.Count > 0) Then
+              matterDebugCount = Range(matterDebugMin,matterDebugMax).Shuffle(TrueRandom(10000))[1]
+              matterDebugValue = matterDebugNonExclusive.SelectRandom(matterDebugCount).Join(",").ToString()
+            EndIf
+          EndIf
+        %}
+          <div data-type="{%= matterDebugType %}" data-inputcode="{%= matterDebugQuestion.InputCode %}" data-values="{%= matterDebugValue %}" data-shortcut="{%= matterDebugQuestion.Shortcut %}"></div>
+        {% Next matterDebugIndex %}
+        </div>
+        <script src="{%:= CurrentADP.URLTo("static/matter.debug.js") %}"></script>
+        {% EndIf %}
     </body>
 </html>
