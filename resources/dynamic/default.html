@@ -333,12 +333,13 @@
           <div id="matter-debug-content" hidden>
             <h2>Debug Mode</h2>
             <p>Current question: <strong>{%= CurrentQuestion.Shortcut %}</strong></p>
-            <button id="matter-debug-answer" type="button">Auto Answer</button>
-            <p id="matter-debug-status" role="status" aria-live="polite">Fill this page and advance.</p>
+            <button id="matter-debug-answer" type="button">Auto Answer + Next</button>
+            <p id="matter-debug-status" role="status" aria-live="polite">Fill this page and advance once.</p>
             <h3>Jump to Section</h3>
             <ul>
               {%
-              Dim matterDebugNavQuestions = Survey.Questions.FilterByTag("Nav")
+              Dim matterDebugNavTag = CurrentADP.Var("debug_navigation_tag").ToString()
+              Dim matterDebugNavQuestions = Survey.Questions.FilterByTag(matterDebugNavTag)
               Dim matterDebugNavIndex
               Dim matterDebugNavURL
               Dim matterDebugNavPosition
@@ -356,7 +357,7 @@
               {% Next matterDebugNavIndex %}
             </ul>
             {% If matterDebugNavQuestions.Count = 0 Then %}
-            <p>No questions tagged Nav.</p>
+            <p>No questions matched navigation tag: <strong>{%= matterDebugNavTag %}</strong>.</p>
             {% EndIf %}
           </div>
         </aside>
