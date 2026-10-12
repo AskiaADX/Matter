@@ -41,6 +41,10 @@
           <option value="false" text="False" />
         </options>
       </property>
+      <property xsi:type="standardProperty" id="debug_navigation_tag" name="Debug Navigation Tag" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Question tag used for Debug Mode navigation]]></description>
+        <value><![CDATA[Nav]]></value>
+      </property>
       <property xsi:type="standardProperty" id="window_title" name="Window title" type="string" require="true" visible="true">
         <description><![CDATA[Title of the window]]></description>
         <value><![CDATA[Askia Web Survey]]></value>
