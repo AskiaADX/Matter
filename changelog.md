@@ -44,4 +44,4 @@ v3.0.0      - ADPSchema 2.2.0
     v3.6.6  - 
     v3.6.7  - Survey-test-info feature removed
     v3.7.0 -  fixed - sticky header function
-    v3.8.0 - Debug Mode: dynamic General setting, native slide-out panel, Nav-tag links, current shortcut, Auto Answer + Next.
+    v3.8.0 - Debug Mode: tag-based navigation and Auto Answer integration.
