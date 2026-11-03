@@ -333,8 +333,8 @@
           <div id="matter-debug-content" hidden>
             <h2>Debug Mode</h2>
             <p>Current question: <strong>{%= CurrentQuestion.Shortcut %}</strong></p>
-            <button id="matter-debug-answer" type="button">Auto Answer</button>
-            <p id="matter-debug-status" role="status" aria-live="polite">Fill this page and advance</p>
+            <button id="matter-debug-answer" type="button" data-auto-submit="{%= CurrentADP.Var("debug_auto_answer_submit").ToString().ToLowerCase() %}">Auto Answer</button>
+            <p id="matter-debug-status" role="status" aria-live="polite">{% If CurrentADP.Var("debug_auto_answer_submit").ToString().ToLowerCase() = "true" Then %}Fill this page and advance{% Else %}Fill this page{% EndIf %}</p>
             <h3>Jump to Section</h3>
             <ul>
               {%

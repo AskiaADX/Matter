@@ -7,6 +7,7 @@
   var content = document.getElementById('matter-debug-content');
   var button = document.getElementById('matter-debug-answer');
   var status = document.getElementById('matter-debug-status');
+  var autoSubmit = button.getAttribute('data-auto-submit') === 'true';
   var changed = [];
   var panelStorageKey = 'matter.debug.panel.open';
 
@@ -145,6 +146,11 @@
       }
       if (errors.length) {
         status.textContent = 'Could not fill: ' + errors.join(', ') + '. Check these controls manually; Next was not clicked.';
+        button.disabled = false;
+        return;
+      }
+      if (!autoSubmit) {
+        status.textContent = 'Answers filled.';
         button.disabled = false;
         return;
       }

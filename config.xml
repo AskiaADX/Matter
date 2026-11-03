@@ -41,6 +41,14 @@
           <option value="false" text="False" />
         </options>
       </property>
+      <property xsi:type="standardProperty" id="debug_auto_answer_submit" name="Auto Answer Submit" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Submit after auto-answer.]]></description>
+        <value><![CDATA[true]]></value>
+        <options>
+          <option value="true" text="True" />
+          <option value="false" text="False" />
+        </options>
+      </property>
       <property xsi:type="standardProperty" id="debug_navigation_tag" name="Debug Navigation Tag" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Question tag used for Debug Mode navigation]]></description>
         <value><![CDATA[Nav]]></value>
